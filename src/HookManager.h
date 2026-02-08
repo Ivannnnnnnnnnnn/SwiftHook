@@ -5,6 +5,7 @@
 #include "ThreadFreezer.h"
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace SwiftHook {
 
@@ -18,8 +19,9 @@ namespace SwiftHook {
         void* pTarget;           // Original function address
         void* pDetour;           // Detour function address
         void* pTrampoline;       // Trampoline (original code + jump)
-        uint8_t originalBytes[16]; // Backup of original bytes
+        std::vector<uint8_t> originalBytes; // Backup of original bytes
         size_t originalLength;   // Length of original bytes
+        size_t patchLength;      // Length of patch written at target
         HookState state;         // Current hook state
     };
 
@@ -118,17 +120,33 @@ namespace SwiftHook {
         /**
          * @brief Create trampoline for original function
          */
-        void* CreateTrampoline(void* pTarget, size_t* pOriginalLength);
+        void* CreateTrampoline(void* pTarget, size_t minLength,
+            size_t* pOriginalLength, Status* pStatus);
 
         /**
          * @brief Write jump instruction
          */
-        static void WriteJump(void* pFrom, void* pTo);
+        static bool WriteJump(void* pFrom, void* pTo, size_t patchLength);
 
         /**
-         * @brief Get required hook size for current architecture
+         * @brief Get required patch size for a jump from pFrom to pTo
          */
-        static size_t GetHookSize();
+        static size_t GetJumpSize(void* pFrom, void* pTo);
+
+        /**
+         * @brief Get maximum hook size for current architecture
+         */
+        static size_t GetMaxHookSize();
+
+        /**
+         * @brief Fill remaining bytes with NOPs
+         */
+        static void FillNops(void* pFrom, size_t count);
+
+        /**
+         * @brief Check if target address is executable
+         */
+        static bool IsExecutableAddress(void* pTarget);
     };
 
 } // namespace SwiftHook
