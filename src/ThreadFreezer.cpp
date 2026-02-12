@@ -117,20 +117,15 @@ namespace SwiftHook {
         return success;
     }
 
-#else // Unix-like systems
+#else // Unix systems
 
     bool ThreadFreezer::FreezeUnix() {
-        // On Unix-like systems, thread freezing is more complex
-        // This is a simplified placeholder implementation
-        // A full implementation would use ptrace or similar mechanisms
-
-        // For now, we just return true as a placeholder
-        // Real implementation would enumerate threads via /proc or similar
+        //TODO
         return true;
     }
 
     bool ThreadFreezer::UnfreezeUnix() {
-        // Placeholder - resume threads
+        //TODO
         pImpl->frozenThreads.clear();
         return true;
     }
