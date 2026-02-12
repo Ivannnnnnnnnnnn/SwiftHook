@@ -17,8 +17,7 @@ A modern, safe, and efficient C++ API hooking library for Windows (with cross-pl
 |----------|-------------|--------|
 | Windows  | x86         | ✅ Supported |
 | Windows  | x64         | ✅ Supported |
-| Linux    | x64         | ✅ Supported |
-| Linux    | ARM64       | ✅ Basic Support |
+| Linux    | x64         | 🚧 Planned |
 | macOS    | x64/ARM64   | 🚧 Planned |
 
 ## Quick Start
@@ -192,3 +191,4 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 - [ ] More comprehensive test suite
 
 - [ ] Detailed documentation
+
