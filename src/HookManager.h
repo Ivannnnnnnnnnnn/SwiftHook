@@ -6,11 +6,14 @@
 #include <cstdint>
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace SwiftHook {
 
     enum class Status;
     enum class HookState;
+
+    struct ValidationResult;
 
     /**
      * @brief Hook information structure
@@ -33,7 +36,6 @@ namespace SwiftHook {
         HookManager();
         ~HookManager();
 
-        // Non-copyable
         HookManager(const HookManager&) = delete;
         HookManager& operator=(const HookManager&) = delete;
 
@@ -49,6 +51,10 @@ namespace SwiftHook {
 
         /**
          * @brief Create a new hook
+         * @param pTarget Pointer to function to hook
+         * @param pDetour Pointer to detour function
+         * @param ppOriginal Pointer to receive trampoline address
+         * @return Status code
          */
         Status CreateHook(void* pTarget, void* pDetour, void** ppOriginal);
 
@@ -106,6 +112,12 @@ namespace SwiftHook {
          */
         HookEntry* FindHook(void* pTarget);
         const HookEntry* FindHook(void* pTarget) const;
+
+        /**
+         * @param pTarget Target address to validate
+         * @return ValidationResult with errors and warnings
+         */
+        ValidationResult ValidateHookTarget(void* pTarget);
 
         /**
          * @brief Install the hook (write jump instruction)
