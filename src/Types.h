@@ -2,6 +2,52 @@
 
 #include <cstdint>
 
+// Undefine Windows macros that conflict with our enum values
+#ifdef _WIN32
+#ifdef ERROR_UNKNOWN
+#undef ERROR_UNKNOWN
+#endif
+#ifdef ERROR_ALREADY_INITIALIZED
+#undef ERROR_ALREADY_INITIALIZED
+#endif
+#ifdef ERROR_NOT_INITIALIZED
+#undef ERROR_NOT_INITIALIZED
+#endif
+#ifdef ERROR_ALREADY_CREATED
+#undef ERROR_ALREADY_CREATED
+#endif
+#ifdef ERROR_NOT_CREATED
+#undef ERROR_NOT_CREATED
+#endif
+#ifdef ERROR_ENABLED
+#undef ERROR_ENABLED
+#endif
+#ifdef ERROR_DISABLED
+#undef ERROR_DISABLED
+#endif
+#ifdef ERROR_NOT_EXECUTABLE
+#undef ERROR_NOT_EXECUTABLE
+#endif
+#ifdef ERROR_UNSUPPORTED_FUNCTION
+#undef ERROR_UNSUPPORTED_FUNCTION
+#endif
+#ifdef ERROR_MEMORY_ALLOC
+#undef ERROR_MEMORY_ALLOC
+#endif
+#ifdef ERROR_MEMORY_PROTECT
+#undef ERROR_MEMORY_PROTECT
+#endif
+#ifdef ERROR_INVALID_PARAMETER
+#undef ERROR_INVALID_PARAMETER
+#endif
+#ifdef ERROR_THREAD_FREEZE
+#undef ERROR_THREAD_FREEZE
+#endif
+#ifdef ERROR_INSUFFICIENT_BUFFER
+#undef ERROR_INSUFFICIENT_BUFFER
+#endif
+#endif // _WIN32
+
 namespace SwiftHook {
 
     /**
